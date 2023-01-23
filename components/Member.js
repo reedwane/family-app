@@ -1,11 +1,18 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Member = ({ item, deleteHander, index }) => {
   return (
-    <TouchableOpacity onPress={() => deleteHander(item.id)}>
-      <Text style={styles.member}>
-        {index + 1}: {item.name}
-      </Text>
+    <TouchableOpacity>
+      <View style={styles.member}>
+        <MaterialCommunityIcons
+          name="delete-outline"
+          size={24}
+          color="#333"
+          onPress={() => deleteHander(item.id)}
+        />
+        <Text>{item.name}</Text>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -18,6 +25,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: "dashed",
     borderRadius: 10,
+    flexDirection: "row-reverse",
+    justifyContent: "space-between",
   },
 });
 

@@ -1,6 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  Keyboard,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import AddMember from "./components/AddMember";
 import Header from "./components/Header";
 import Member from "./components/Member";
@@ -28,29 +36,31 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <Header />
-      <View style={styles.content}>
-        <AddMember addMemberHandler={AddMemberHandler} />
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <Header />
+        <View style={styles.content}>
+          <AddMember addMemberHandler={AddMemberHandler} />
 
-        <View style={styles.list}>
-          <FlatList
-            data={family}
-            keyExtractor={(member) => member.id}
-            renderItem={({ item, index }) => (
-              <Member
-                item={item}
-                index={index}
-                deleteHander={removeMemberHandler}
-              />
-            )}
-            ListFooterComponent={<Text>we are now {family.length}</Text>}
-          />
+          <View style={styles.list}>
+            <FlatList
+              data={family}
+              keyExtractor={(member) => member.id}
+              renderItem={({ item, index }) => (
+                <Member
+                  item={item}
+                  index={index}
+                  deleteHander={removeMemberHandler}
+                />
+              )}
+              ListFooterComponent={<Text>we are now {family.length}</Text>}
+            />
+          </View>
         </View>
-      </View>
 
-      <StatusBar style="auto" />
-    </View>
+        <StatusBar style="auto" />
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -61,8 +71,12 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 40,
+    backgroundColor: "pink",
+    flex: 1,
   },
   list: {
+    flex: 1,
     marginTop: 20,
+    backgroundColor: "yellow",
   },
 });
